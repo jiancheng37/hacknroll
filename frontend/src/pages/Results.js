@@ -4,115 +4,39 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Results = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { classification, sound_url } = location.state || {};
 
-  // Destructure state passed from the Upload component
-  const { state } = location;
-  const { result, imageUrl, soundUrl } = state || {}; // Assuming backend also returns `soundUrl`
-
-  // Play sound based on result
   useEffect(() => {
-    if (soundUrl) {
-      const audio = new Audio(soundUrl);
-      audio.play().catch((err) => console.error("Error playing sound:", err));
+    if (!classification || !sound_url) {
+      // Redirect to Home if state is missing
+      navigate("/");
+      return;
     }
-  }, [soundUrl]); // Trigger effect when `soundUrl` is set
 
-  // Handle navigation back to the upload page
-  const handleRetry = () => {
-    navigate("/upload");
-  };
+    // Play the sound
+    const audio = new Audio(sound_url);
+    audio.play();
 
-  // Handle navigation back to the home page
-  const handleGoHome = () => {
-    navigate("/");
-  };
+    // Cleanup: Stop the sound when the component unmounts
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, [classification, sound_url, navigate]);
 
-  // Render different messages based on the result
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", minHeight: "100vh" }}>
-      <h2>Your Fashion Results</h2>
-
-      {/* Display the uploaded image */}
-      {imageUrl && (
-        <img
-          src={imageUrl}
-          alt="Uploaded Fit"
-          style={{
-            maxWidth: "300px",
-            maxHeight: "400px",
-            marginBottom: "20px",
-            borderRadius: "10px",
-            border: "2px solid #ddd",
-          }}
-        />
-      )}
-
-      {/* Display the analysis result */}
-      {result === "slay" ? (
-        <div
-          style={{
-            color: "green",
-            fontWeight: "bold",
-            fontSize: "24px",
-            marginBottom: "20px",
-          }}
-        >
-          ✨ SLAY! ✨ You served a look! 👗🔥
-        </div>
-      ) : result === "jail" ? (
-        <div
-          style={{
-            color: "red",
-            fontWeight: "bold",
-            fontSize: "24px",
-            marginBottom: "20px",
-          }}
-        >
-          🚨 JAIL! 🚨 Fashion police are on their way! ⛓️👮‍♂️
+    <div style={{ textAlign: "center", marginTop: "20px" }}>
+      {classification === "bad" ? (
+        <div>
+          <h1 style={{ color: "red" }}>🚨 JAIL 🚨</h1>
+          <p>Better luck next time!</p>
         </div>
       ) : (
-        <div
-          style={{
-            color: "gray",
-            fontWeight: "bold",
-            fontSize: "18px",
-            marginBottom: "20px",
-          }}
-        >
-          🤔 Hmm... We're not sure about this one.
+        <div>
+          <h1 style={{ color: "green" }}>✨ SLAY ✨</h1>
+          <p>You nailed it!</p>
         </div>
       )}
-
-      {/* Buttons for further navigation */}
-      <div>
-        <button
-          onClick={handleRetry}
-          style={{
-            margin: "10px",
-            padding: "10px 20px",
-            backgroundColor: "#6200ea",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-          }}
-        >
-          Try Again
-        </button>
-
-        <button
-          onClick={handleGoHome}
-          style={{
-            margin: "10px",
-            padding: "10px 20px",
-            backgroundColor: "#03dac6",
-            color: "black",
-            border: "none",
-            borderRadius: "5px",
-          }}
-        >
-          Back to Home
-        </button>
-      </div>
     </div>
   );
 };

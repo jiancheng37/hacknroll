@@ -39,9 +39,9 @@ const Upload = () => {
         throw new Error("Failed to upload image");
       }
 
-      const { result, imageUrl } = await response.json();
+      const { classification, sound_url } = await response.json();
 
-      navigate("/results", { state: { result, imageUrl } });
+      navigate("/results", { state: { classification, sound_url } });
     } catch (error) {
       console.error("Error during upload:", error);
       alert("Something went wrong. Please try again.");
