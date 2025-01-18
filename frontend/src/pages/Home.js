@@ -1,23 +1,21 @@
 import React from 'react';
-import './Home.css'; // Import custom CSS for the Home page
+import './Home.css';
 
 const Home = () => {
   return (
     <div className="home-container">
-      {/* Header Section */}
       <div className="home-header">
-        <h1>Slay or Jail</h1>
+        <h1>Slay orrrr Jail</h1>
         <p>"Where fashion dreams either shine or do time! ✨👗⛓️"</p>
       </div>
 
-      {/* Main Content */}
-      <div className="home-content">
-        <div className="card">
-          <h2>Ready to face the fashion jury?</h2>
-          <p>Upload your fit and let our AI judge decide if you're:</p>
-
-          {/* SLAY or JAIL Section */}
-          <div className="slay-jail">
+      <div className="card-container">
+        <div className="slay-or-jail-card">
+          <h2 className="card-title">Ready to face the fashion jury?</h2>
+          <p className="card-description">
+            Upload your fit and let our AI judge decide if you're:
+          </p>
+          <div className="decision-container">
             <div className="slay">
               <h3>✨ SLAY ✨</h3>
               <p>"Material Gworl!"</p>
@@ -27,9 +25,7 @@ const Home = () => {
               <p>"Hello, fashion police?"</p>
             </div>
           </div>
-
-          {/* Navigation Button */}
-          <button className="serve-look-button">Serve Your Look</button>
+          <button className="upload-button">Serve Your Look</button>
         </div>
       </div>
     </div>

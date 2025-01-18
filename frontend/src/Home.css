@@ -1,69 +1,194 @@
-/* src/pages/Home.css */
+/* General Styling */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom, #fbcfe8, #d4c3f3); /* Matches the home-container */
+  color: #333;
+  overflow-x: hidden;
+}
+
 .home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    background: linear-gradient(to bottom, #fbcfe8, #d4c3f3); /* Pink to purple gradient */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+/* Header Section */
+.home-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.home-header h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #7e22ce;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.home-header p {
+  font-size: 1.2rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Content Section */
+.home-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+/* Card Styling */
+.card {
+  background-color: white;
+  padding: 1rem 1.2rem; /* Adjusted for compactness */
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 65%; /* Compact card size */
+  max-width: 400px;
+  margin: 1rem auto;
+  transform: scale(0.95);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: floating 3s ease-in-out infinite;
+  border: 1px solid #ddd;
+}
+
+.card h2 {
+  font-size: 1.5rem; /* Slightly reduced title size */
+  margin-bottom: 0.8rem;
+  color: #7e22ce;
+  font-weight: bold;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+/* Card Hover Effect */
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  border-color: #7e22ce;
+}
+
+/* Slay or Jail Section */
+.slay-jail {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 1.5rem;
+  width: 100%;
+  gap: 1rem;
+}
+
+.slay, .jail {
+  text-align: center;
+  flex: 1;
+}
+
+.slay h3,
+.jail h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.slay h3 {
+  color: #34d399; /* Vibrant Green */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.jail h3 {
+  color: #ef4444; /* Bold Red */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.slay p,
+.jail p {
+  font-size: 1rem;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* Button Styling */
+button {
+  background: linear-gradient(to right, #7e22ce, #f472b6);
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to right, #6d28d9, #ec4899);
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Floating Animation */
+@keyframes floating {
+  0% {
+    transform: translateY(0) scale(1);
   }
-  
-  .home-header {
-    text-align: center;
-    margin-bottom: 2rem;
+  50% {
+    transform: translateY(-10px) scale(1.03);
   }
-  
-  .home-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 2rem;
+  100% {
+    transform: translateY(0) scale(1);
   }
-  
+}
+
+/* Fade-In Animation for Header */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
   .card {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    width: 90%; /* Adjusts for smaller screens */
   }
-  
-  .slay-jail {
-    display: flex;
-    justify-content: space-around;
-    padding: 1rem;
-    width: 100%;
+
+  .home-header h1 {
+    font-size: 2.5rem;
+    background-color: #fbcfe8;
   }
-  
-  .slay, .jail {
-    text-align: center;
+
+  .home-header p {
+    font-size: 1rem;
   }
-  
-  .slay h3 {
-    color: #34d399; /* Green */
+
+  .slay h3, .jail h3 {
+    font-size: 1.5rem;
   }
-  
-  .jail h3 {
-    color: #ef4444; /* Red */
-  }
-  
+
   button {
-    background: linear-gradient(to right, #7e22ce, #f472b6);
-    color: white;
-    border-radius: 0.375rem;
-    padding: 1rem 2rem;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
   }
-  
-  button:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  button:focus {
-    outline: none;
-  }
+}

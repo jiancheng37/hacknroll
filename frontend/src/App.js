@@ -1,38 +1,41 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Upload from "./pages/Upload";
-import Results from "./pages/Results";
+import React from 'react';
+import Header from './components/Header'
+import './App.css';
 
 function App() {
+  
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="App">
-              <div className="App-header">
-                <h1>Slay or Jail</h1>
-                <p>"Where fashion dreams either shine or do time! ✨👗⛓️"</p>
-              </div>
-              <div className="App-content">
-                <div className="App-card">
-                  <h2>Ready to face the fashion jury?</h2>
-                  <p>Upload your fit and let our AI judge decide if you're:</p>
-                  <Link to="/upload">
-                    <button style={{ padding: "10px 20px", fontSize: "16px" }}>
-                      Serve Your Look
-                    </button>
-                  </Link>
-                </div>
-              </div>
+    <div className="App">
+      {/* Header Section */}
+      <div className="App-content">
+        <div className="App-card">
+          <h1>Slay or Jail</h1>
+          <Header />
+          <p>"Where fashion dreams either shine or do time! ✨👗⛓️"</p>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="App-content">
+        <div className="App-card">
+          <h2>Ready to face the fashion jury?</h2>
+          <p>Upload your fit and let our AI judge decide if you're:</p>
+
+          <div className="slay-jail">
+            <div className="slay">
+              <h3>✨ SLAY ✨</h3>
+              <p>"Material Gworl!"</p>
             </div>
-          }
-        />
-        <Route path="/upload" element={<Upload />} />
-        <Route path="/results" element={<Results />} />
-      </Routes>
-    </Router>
+            <div className="jail">
+              <h3>🚨 JAIL 🚨</h3>
+              <p>"Hello, fashion police?"</p>
+            </div>
+          </div>
+
+          <button>Serve Your Look</button>
+        </div>
+      </div>
+    </div>
   );
 }
 
