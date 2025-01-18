@@ -151,7 +151,18 @@ def audio(folder):
         blobs = list(bucket.list_blobs(prefix=folder_prefix))
         
         # Filter out only .mp3 files
-        audio_files = [blob.public_url for blob in blobs if blob.name.endswith('.mp3')]
+        audio_files = []
+        for blob in blobs:
+            if blob.size > 0:
+                # Get the public access token link for the blob
+                token_url = (
+                    f"https://firebasestorage.googleapis.com/v0/b/{bucket.name}/o/"
+                    f"{blob.name.replace('/', '%2F')}?alt=media&token={blob.metadata.get('firebaseStorageDownloadTokens')}"
+                )
+                audio_files.append(token_url)
+
+        if not audio_files:
+            return jsonify({"error": f"No files found in the '{folder}' folder"}), 404
 
         # Handle case where no audio files are found
         if not audio_files:
@@ -169,12 +180,12 @@ def audio(folder):
 
 def get_response_message(score: int) -> str:
     if score >= 90:
-        return "ABSOLUTE SERVE! 💅✨ You're giving main character energy!"
+        return 5
     elif score >= 80:
-        return "You ate and left no crumbs! 🔥"
+        return 4
     elif score >= 70:
-        return "It's a solid look! Keep serving! ⭐"
+        return 3
     elif score >= 50:
-        return "It's giving... maybe try again? 😬"
+        return 2
     else:
-        return "PRISON. STRAIGHT TO JAIL. 👮‍♂️"
+        return 1

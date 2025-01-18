@@ -51,7 +51,7 @@ class VisionService:
         final_score = int((style_score + color_score + outfit_score) / 3)
         
         # Determine classification
-        classification = 'good' if final_score >= 70 else 'bad'
+        classification = 'good' if final_score >= 65 else 'bad'
 
         details = {
             'style_score': style_score,
