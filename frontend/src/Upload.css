@@ -57,4 +57,77 @@ body {
     color: #aaa;
     cursor: not-allowed;
   }
+
+  /* Slay & Jail Headings */
+  .slay h4, .jail h4 {
+    font-size: 6.8rem; /* Adjust the font size for h4 */
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0; /* Remove default margins */
+    position: fixed; /* Fixed positioning */
+    top: 10%; /* Adjust as needed for spacing */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center alignment correction */
+    z-index: 1000; /* Ensure it's on top */
+    margin-left: -3%;
+  }
+
+.slay h4 {
+  color: #34d399; /* Vibrant Green */
+  animation: slayBounce 1.5s ease-in-out infinite;
+}
+
+.jail h4 {
+  color: #ef4444; /* Bold Red */
+  animation: jailShake 1s ease-in-out infinite;
+}
+
+.animated-ring {
+  animation: move-and-scale 5s ease-in-out infinite;
+}
+
+@keyframes move-and-scale {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Bounce effect for Slay */
+@keyframes slayBounce {
+  0%, 100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -20px);
+  }
+}
+
+/* Shake effect for Jail */
+@keyframes jailShake {
+  0%, 100% {
+    transform: translate(-50%, 0);
+  }
+  25% {
+    transform: translate(-50%, -10px);
+  }
+  75% {
+    transform: translate(-50%, 10px);
+  }
+}
+
+.slay h4 {
+  color: #f472b6; /* Soft Pink */
+  animation: slayBounce 1.5s ease-in-out infinite;
+}
+
+.jail h4 {
+  color: #ef4444; /* Bold Red */
+  animation: jailShake 1s ease-in-out infinite;
+}
   
