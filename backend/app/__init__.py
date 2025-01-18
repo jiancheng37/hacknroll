@@ -1,6 +1,7 @@
 import os
 from flask_cors import CORS
 from flask import Flask
+from dotenv import load_dotenv
 from .routes import api
 from firebase_admin import credentials, initialize_app, storage
 
@@ -9,11 +10,16 @@ def create_app():
     CORS(app)
     app.register_blueprint(api)
 
-    base_dir = os.path.abspath(os.path.dirname(__file__))  # Directory of __init__.py
-    cred_path = os.path.join(base_dir, '../credentials.json')
+    # Load environment variables from .env file
+    load_dotenv()
+
+    cred_path = os.getenv('FIREBASE_CRED_PATH')
+    storage_bucket = os.getenv('FIREBASE_STORAGE_BUCKET')
+
+    # Initialize Firebase Admin SDK
     cred = credentials.Certificate(cred_path)
     initialize_app(cred, {
-        'storageBucket': 'drip-48e2d.firebasestorage.app'
+        'storageBucket': storage_bucket
     })
 
     app.storage_bucket = storage.bucket()

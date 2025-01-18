@@ -18,7 +18,7 @@ def upload_image():
         return jsonify({"error": "No image uploaded"}), 400
     
 
-    prediction = 'bad'  # Assume 'bad' or 'good' is determined by some model
+    prediction = 'good'  # Assume 'bad' or 'good' is determined by some model
 
     try:
         # Call the audio endpoint with the predicted folder
@@ -55,7 +55,15 @@ def audio(folder):
         # List all blobs (files) in the folder
         blobs = bucket.list_blobs(prefix=folder_prefix)
 
-        files = [blob.public_url for blob in blobs if blob.size > 0]
+        files = []
+        for blob in blobs:
+            if blob.size > 0:
+                # Get the public access token link for the blob
+                token_url = (
+                    f"https://firebasestorage.googleapis.com/v0/b/{bucket.name}/o/"
+                    f"{blob.name.replace('/', '%2F')}?alt=media&token={blob.metadata.get('firebaseStorageDownloadTokens')}"
+                )
+                files.append(token_url)
 
         if not files:
             return jsonify({"error": f"No files found in the '{folder}' folder"}), 404
