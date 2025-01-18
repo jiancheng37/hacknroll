@@ -84,21 +84,23 @@ body {
 /* Slay or Jail Section */
 .slay-jail {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: flex-start;
   padding: 1.5rem;
-  width: 100%;
-  gap: 1rem;
+  width: 65%;
+  gap: 1.5rem;
+  margin-left: -8%;
 }
 
+
 .slay, .jail {
-  text-align: center;
-  flex: 1;
+  text-align: left;
+  flex: 4.5;
 }
 
 .slay h3,
 .jail h3 {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: bold;
 }
 
@@ -114,7 +116,7 @@ body {
 
 .slay p,
 .jail p {
-  font-size: 1rem;
+  font-size: 1.0rem; /* size for the "Material Gworl"*/
   font-style: italic;
   margin-top: 0.5rem;
 }
