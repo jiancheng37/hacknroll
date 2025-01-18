@@ -2,3 +2,4 @@ venv/
 *.pyc
 __pycache__/
 backend/credentials.json
+backend/vision.json
