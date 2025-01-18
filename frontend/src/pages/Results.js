@@ -1,27 +1,42 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Results = () => {
   const location = useLocation();
-  const { result, imageUrl } = location.state || {};
+  const navigate = useNavigate();
+  const { classification, sound_url } = location.state || {};
 
-  if (!result || !imageUrl) {
-    return (
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
-        <h1>Invalid Access</h1>
-        <p>Please upload an image first.</p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!classification || !sound_url) {
+      // Redirect to Home if state is missing
+      navigate("/");
+      return;
+    }
+
+    // Play the sound
+    const audio = new Audio(sound_url);
+    audio.play();
+
+    // Cleanup: Stop the sound when the component unmounts
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, [classification, sound_url, navigate]);
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>{result === "Slay" ? "🔥 Slay! 🔥" : "⛓️ Jail! ⛓️"}</h1>
-      <img
-        src={imageUrl}
-        alt="Uploaded"
-        style={{ marginTop: "20px", maxWidth: "80%", borderRadius: "10px" }}
-      />
+    <div style={{ textAlign: "center", marginTop: "20px" }}>
+      {classification === "bad" ? (
+        <div>
+          <h1 style={{ color: "red" }}>🚨 JAIL 🚨</h1>
+          <p>Better luck next time!</p>
+        </div>
+      ) : (
+        <div>
+          <h1 style={{ color: "green" }}>✨ SLAY ✨</h1>
+          <p>You nailed it!</p>
+        </div>
+      )}
     </div>
   );
 };
