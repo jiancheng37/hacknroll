@@ -1,19 +1,40 @@
 import os
 from flask import Flask
-from .routes import api
 from firebase_admin import credentials, initialize_app, storage
+from dotenv import load_dotenv
+from .routes import api, init_vision_service
 
 def create_app():
+    # Load environment variables
+    load_dotenv()
+    
     app = Flask(__name__)
-    app.register_blueprint(api)
-
-    base_dir = os.path.abspath(os.path.dirname(__file__))  # Directory of __init__.py
-    cred_path = os.path.join(base_dir, '../credentials.json')
-    cred = credentials.Certificate(cred_path)
+    
+    # Load configuration
+    from config import Config
+    app.config.from_object(Config)
+    
+    # Check for credentials
+    if not os.path.exists(app.config['GOOGLE_APPLICATION_CREDENTIALS']):
+        raise RuntimeError("Google Cloud credentials not found")
+        
+    if not os.path.exists(app.config['FIREBASE_ADMIN_CREDENTIALS']):
+        raise RuntimeError("Firebase Admin credentials not found")
+    
+    # Initialize Firebase with admin credentials
+    cred = credentials.Certificate(app.config['FIREBASE_ADMIN_CREDENTIALS'])
     initialize_app(cred, {
-        'storageBucket': 'drip-48e2d.firebasestorage.app'
+        'storageBucket': app.config['FIREBASE_STORAGE_BUCKET']
     })
-
+    
+    # Set up storage bucket
     app.storage_bucket = storage.bucket()
-
+    
+    # Register blueprint
+    app.register_blueprint(api)
+    
+    # Initialize vision service within app context
+    with app.app_context():
+        init_vision_service(app)
+    
     return app
