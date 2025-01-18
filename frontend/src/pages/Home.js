@@ -1,5 +1,6 @@
-import React from 'react';
-import './Home.css'; // Import custom CSS for the Home page
+import React from "react";
+import { Link } from "react-router-dom"; // Use Link for navigation
+import "../Home.css"; // Import custom CSS for the Home page
 
 const Home = () => {
   return (
@@ -29,7 +30,9 @@ const Home = () => {
           </div>
 
           {/* Navigation Button */}
-          <button className="serve-look-button">Serve Your Look</button>
+          <Link to="/upload">
+            <button className="serve-look-button">Serve Your Look</button>
+          </Link>
         </div>
       </div>
     </div>
