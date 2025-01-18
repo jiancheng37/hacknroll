@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../Upload.css";
 
 const Upload = () => {
   const [file, setFile] = useState(null);
@@ -26,11 +27,9 @@ const Upload = () => {
     setLoading(true);
 
     try {
-      // Create FormData to send the file as part of the HTTP request
       const formData = new FormData();
       formData.append("file", file);
 
-      // Send the image file to the backend
       const response = await fetch("http://localhost:3001/upload", {
         method: "POST",
         body: formData,
@@ -40,9 +39,8 @@ const Upload = () => {
         throw new Error("Failed to upload image");
       }
 
-      const { result, imageUrl } = await response.json(); // Assuming your backend returns JSON with these keys
+      const { result, imageUrl } = await response.json();
 
-      // Navigate to the Result Page with the result and image URL
       navigate("/results", { state: { result, imageUrl } });
     } catch (error) {
       console.error("Error during upload:", error);
@@ -53,35 +51,11 @@ const Upload = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", minHeight: "100vh" }}>
+    <div className="upload-container">
       <h2>Please upload a full body picture</h2>
-      {/* Preview Image Section */}
-      {previewUrl && (
-        <img
-          src={previewUrl}
-          alt="Preview"
-          style={{
-            maxWidth: "300px",
-            maxHeight: "400px",
-            marginBottom: "20px",
-            borderRadius: "10px",
-            border: "2px solid #ddd",
-          }}
-        />
-      )}
+      {previewUrl && <img src={previewUrl} alt="Preview" />}
       <input type="file" onChange={handleFileChange} accept="image/*" />
-      <button
-        onClick={handleUpload}
-        disabled={loading}
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          backgroundColor: "#6200ea",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-        }}
-      >
+      <button onClick={handleUpload} disabled={loading}>
         {loading ? "Uploading..." : "Upload and Analyze"}
       </button>
     </div>
