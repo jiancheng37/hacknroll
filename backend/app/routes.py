@@ -96,6 +96,7 @@ def upload_image():
     # Add debug logging
     print("Files in request:", request.files)
     print("Content Type:", request.content_type)
+
     
     if 'image' not in request.files:
         print("No image file in request")
@@ -169,12 +170,12 @@ def audio(folder):
 
 def get_response_message(score: int) -> str:
     if score >= 90:
-        return "ABSOLUTE SERVE! 💅✨ You're giving main character energy!"
+        return 5
     elif score >= 80:
-        return "You ate and left no crumbs! 🔥"
+        return 4
     elif score >= 70:
-        return "It's a solid look! Keep serving! ⭐"
+        return 3
     elif score >= 50:
-        return "It's giving... maybe try again? 😬"
+        return 2
     else:
-        return "PRISON. STRAIGHT TO JAIL. 👮‍♂️"
+        return 1
