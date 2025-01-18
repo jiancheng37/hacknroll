@@ -1,10 +1,19 @@
+<<<<<<< HEAD
 import React from 'react';
 import Header from './components/Header'
 import './App.css';
+=======
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home"; // Import Home component
+import Upload from "./pages/Upload"; // Import Upload component
+import Results from "./pages/Results"; // Import Results component
+>>>>>>> 9becb8ed741ec4030b061792e7809d2f710a3eca
 
 function App() {
   
   return (
+<<<<<<< HEAD
     <div className="App">
       {/* Header Section */}
       <div className="App-content">
@@ -36,6 +45,20 @@ function App() {
         </div>
       </div>
     </div>
+=======
+    <Router>
+      <Routes>
+        {/* Home Page Route */}
+        <Route path="/" element={<Home />} />
+
+        {/* Upload Page Route */}
+        <Route path="/upload" element={<Upload />} />
+
+        {/* Results Page Route */}
+        <Route path="/results" element={<Results />} />
+      </Routes>
+    </Router>
+>>>>>>> 9becb8ed741ec4030b061792e7809d2f710a3eca
   );
 }
 

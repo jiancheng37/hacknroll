@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import React from 'react';
 import './Home.css';
+=======
+import React from "react";
+import { Link } from "react-router-dom"; // Use Link for navigation
+import "../Home.css"; // Import custom CSS for the Home page
+>>>>>>> 9becb8ed741ec4030b061792e7809d2f710a3eca
 
 const Home = () => {
   return (
@@ -25,7 +31,15 @@ const Home = () => {
               <p>"Hello, fashion police?"</p>
             </div>
           </div>
+<<<<<<< HEAD
           <button className="upload-button">Serve Your Look</button>
+=======
+
+          {/* Navigation Button */}
+          <Link to="/upload">
+            <button className="serve-look-button">Serve Your Look</button>
+          </Link>
+>>>>>>> 9becb8ed741ec4030b061792e7809d2f710a3eca
         </div>
       </div>
     </div>
