@@ -1,0 +1,88 @@
+/* Home.module.css */
+
+/* Container styles */
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #fbcfe8, #e9d5ff); /* pink to purple gradient */
+    padding: 3rem 1.5rem;
+  }
+  
+  /* Header section styles */
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: bounce 1s infinite;  /* Add animation if needed */
+  }
+  
+  .header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #7c3aed; /* Purple color */
+  }
+  
+  .header p {
+    font-size: 1.25rem;
+    color: #6b46c1; /* Slightly lighter purple */
+    font-style: italic;
+    margin-top: 1rem;
+  }
+  
+  /* Card styles */
+  .card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: center;
+  }
+  
+  .card h2 {
+    font-size: 1.75rem;
+    color: #7c3aed;
+    margin-bottom: 1.5rem;
+  }
+  
+  .card p {
+    font-size: 1.125rem;
+    color: #4a5568;
+    margin-bottom: 1.5rem;
+  }
+  
+  .card button {
+    width: 100%;
+    background: linear-gradient(to right, #7c3aed, #ec4899);
+    color: white;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    font-size: 1.125rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .card button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Flexbox for the items within the card */
+  .flexItems {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1.5rem;
+  }
+  
+  .flexItems div {
+    text-align: center;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+    color: #4a5568;
+  }
