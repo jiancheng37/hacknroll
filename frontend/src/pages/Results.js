@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Results = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { classification, details, message, score, sound_url } = location.state || {};
+  const { classification, score, sound_url } = location.state || {};
   const audioRef = useRef(null);
 
   useEffect(() => {
