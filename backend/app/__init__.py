@@ -1,10 +1,12 @@
 import os
+from flask_cors import CORS
 from flask import Flask
 from .routes import api
 from firebase_admin import credentials, initialize_app, storage
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
     app.register_blueprint(api)
 
     base_dir = os.path.abspath(os.path.dirname(__file__))  # Directory of __init__.py

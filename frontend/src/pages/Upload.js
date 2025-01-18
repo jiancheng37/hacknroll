@@ -28,7 +28,7 @@ const Upload = () => {
     try {
       // Create FormData to send the file as part of the HTTP request
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("image", file);
 
       // Send the image file to the backend
       const response = await fetch("http://localhost:3001/upload", {
