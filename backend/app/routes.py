@@ -96,6 +96,7 @@ def upload_image():
     # Add debug logging
     print("Files in request:", request.files)
     print("Content Type:", request.content_type)
+
     
     if 'image' not in request.files:
         print("No image file in request")
