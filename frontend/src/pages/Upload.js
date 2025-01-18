@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import "../Upload.css";
 
 const Upload = () => {
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Define the navigate function
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -39,9 +39,9 @@ const Upload = () => {
         throw new Error("Failed to upload image");
       }
 
-      const { classification, details, message, score } = await response.json();
+      const { classification, sound_url, score } = await response.json();
 
-      navigate("/results", { state: { classification, sound_url } });
+      navigate("/results", { state: { classification, score, sound_url } });
     } catch (error) {
       console.error("Error during upload:", error);
       alert("Something went wrong. Please try again.");
@@ -51,7 +51,7 @@ const Upload = () => {
   };
 
   return (
-    <div className="upload-container">
+    <div className="upload-container fadeIn">
       <h2>Please upload a full body picture</h2>
       {previewUrl && <img src={previewUrl} alt="Preview" />}
       <input type="file" onChange={handleFileChange} accept="image/*" />

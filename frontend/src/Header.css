@@ -1,0 +1,35 @@
+/* Overall Header Styling */
+.page-header {
+    background: linear-gradient(to right, #7e22ce, #f472b6); /* Soft gradient background */
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    border-bottom: 3px solid #fbcfe8;
+    margin-bottom: 2rem;
+  }
+  
+  .page-header h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 3.5s ease-in-out;
+  }
+  
+  .page-header p {
+    font-size: 1.2rem;
+    color: #fbcfe8;
+    font-style: italic;
+    margin-top: 0.5rem;
+    animation: fadeIn 4.5s ease-in-out;
+  }
+  
+  /* Media Queries for Page Header */
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2.5rem;
+    }
+  
+    .page-header p {
+      font-size: 1rem;
+    }
+  }

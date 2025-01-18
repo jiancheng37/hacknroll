@@ -17,15 +17,12 @@ class VisionService:
             else:
                 self.client = vision.ImageAnnotatorClient()
                 
-
             self.style_categories = {
-                'formal': ['suit', 'dress', 'tuxedo', 'gown', 'formal wear', 'blazer'],
-                'casual': ['t-shirt', 'jeans', 'sneakers', 'sweater', 'casual wear'],
-                'sporty': ['athletic wear', 'sportswear', 'leggings', 'running shoes', 'jogging'],
-                'trendy': ['fashion', 'stylish', 'designer', 'luxury', 'runway', 'fashionista'],
-                'accessories': ['hat', 'scarf', 'glasses', 'belt', 'bag']
+                'formal': ['suit', 'dress', 'formal wear', 'tuxedo', 'gown'],
+                'casual': ['t-shirt', 'jeans', 'sneakers', 'casual wear'],
+                'sporty': ['athletic wear', 'sports wear', 'running shoes'],
+                'trendy': ['fashion', 'stylish', 'designer', 'brand']
             }
-
         except Exception as e:
             raise Exception(f"Failed to initialize Vision Service: {str(e)}")
 
@@ -38,20 +35,12 @@ class VisionService:
         # Perform multiple types of detection
         label_detection = self.client.label_detection(image=image)
         object_detection = self.client.object_localization(image=image)
-        print("Labels detected:", label_detection.label_annotations)
-        print("Objects detected:", object_detection.localized_object_annotations)
         image_properties = self.client.image_properties(image=image)
 
         # Analyze results
         labels = [label.description.lower() for label in label_detection.label_annotations]
         objects = [obj.name.lower() for obj in object_detection.localized_object_annotations]
         colors = self._analyze_colors(image_properties.image_properties_annotation)
-
-        # Apply a confidence threshold
-        relevant_labels = [label for label in label_detection.label_annotations if label.score > 0.6]
-        if len(relevant_labels) == 0:
-            return 30, 'bad', {"message": "Unable to detect fashion-related items with confidence."}
-
         
         # Calculate scores
         style_score = self._calculate_style_score(labels, objects)
@@ -87,9 +76,6 @@ class VisionService:
 
     def _calculate_style_score(self, labels: List[str], objects: List[str]) -> int:
         score = 70  # Base score
-
-        if not self._is_fashion_related(labels, objects):
-            score -= 50  # Deduct a significant amount for non-fashion-related content
 
         # Check style consistency
         style_matches = {
@@ -135,18 +121,16 @@ class VisionService:
         return np.sqrt(sum((c1 - c2) ** 2 for c1, c2 in zip(color1, color2))) / 441.67
 
     def _calculate_outfit_completeness(self, objects: List[str]) -> int:
-        score = 60  # Base score
-
-        # Define categories more rigorously
         essential_items = {
             'top': ['shirt', 'blouse', 't-shirt', 'sweater', 'jacket'],
             'bottom': ['pants', 'skirt', 'shorts', 'jeans'],
             'shoes': ['shoes', 'sneakers', 'boots', 'sandals'],
-            'accessories': ['bag', 'watch', 'jewelry', 'belt'],
-            'outerwear': ['coat', 'jacket', 'blazer']
+            'accessories': ['bag', 'watch', 'jewelry', 'belt']
         }
-        
+
+        score = 60  # Base score
         detected_categories = set()
+
         for obj in objects:
             for category, items in essential_items.items():
                 if obj in items and category not in detected_categories:
@@ -158,15 +142,3 @@ class VisionService:
             score -= 20  # Reduce score for incomplete outfits
 
         return min(100, score)
-
-    
-    
-    def _is_fashion_related(self, labels: List[str], objects: List[str]) -> bool:
-        # Define fashion-related keywords
-        fashion_keywords = {"shirt", "dress", "pants", "shoes", "fashion", "style", "footwear"}
-        labels_set = set(labels)
-        objects_set = set(objects)
-        return bool(fashion_keywords & labels_set or fashion_keywords & objects_set)
-
-     
-
