@@ -10,7 +10,7 @@ def create_app():
     load_dotenv()
     
     app = Flask(__name__)
-    
+    CORS(app)
     # Load configuration
     from config import Config
     app.config.from_object(Config)
