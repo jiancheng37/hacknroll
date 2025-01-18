@@ -1,15 +1,6 @@
-<<<<<<< HEAD
-import React from 'react';
-import '../Home.css';
-
-const Home = () => {
-  return (
-    ""
-=======
 import React from "react";
 import { Link } from "react-router-dom";
 import "../Home.css";
-
 const Home = () => {
   return (
     <div className="home-container">
@@ -40,7 +31,7 @@ const Home = () => {
         </div>
       </div>
     </div>
->>>>>>> 3fd988b6bd012bca384b65213a19e57892ea0ccc
+
   );
 };
 
